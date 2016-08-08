@@ -2,7 +2,6 @@ var gulp = require('gulp');
 var del = require('del');
 var typescript = require('gulp-typescript');
 var chokidar = require('chokidar');
-var watch = require('gulp-watch');
 var sequence = require('gulp-sequence');
 var webserver = require('gulp-webserver');
 var serverTSConfig = require('./server/src/tsconfig.json');
