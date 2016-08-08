@@ -1,0 +1,36 @@
+{
+  "name": "invoicegenerator",
+  "version": "1.0.0",
+  "description": "Invoice Generator",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server/build/app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/uqutub"
+  },
+  "keywords": [
+    "Invoice",
+    "Generator",
+    "Invoicing",
+    "System"
+  ],
+  "author": "Yousuf Qutubuddin",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "del": "^2.2.1",
+    "express": "^4.14.0",
+    "gulp": "^3.9.1",
+    "gulp-sequence": "^0.4.5",
+    "gulp-typescript": "^2.13.6",
+    "gulp-watch": "^4.3.9",
+    "gulp-webserver": "^0.9.1",
+    "mongoose": "^4.5.8",
+    "morgan": "^1.7.0",
+    "tslint": "^3.14.0",
+    "typings": "^1.3.2"
+  }
+}
