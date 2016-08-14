@@ -32,6 +32,15 @@ export class Application {
         // this.app.use('/libs', express.static(path.resolve(__dirname, 'libs')));
     }
 
+    public forAngularApp() {
+        let angularRoutes = [
+            "/home",
+            "/customers"
+        ];
+        
+        this.renderAngularPage(angularRoutes)
+    }
+
     public bodyParser() {
         // this.app.use(bodyParser.urlencoded({limit: '1mb', extended: true, parameterLimit: 10000})); // parse application/x-www-form-urlencoded (to support URL-encoded bodies)
         this.app.use(bodyParser.urlencoded({ limit: '1mb', extended: true }));
@@ -93,6 +102,12 @@ export class Application {
         // res.sendFile(path.resolve(__dirname, 'index.html'));
     }
 
+    private renderAngularPage(routes) {
+        this.app.use(routes, (req: express.Request, res: express.Response) => {
+            res.sendFile(path.join(path.join(__dirname, '../../client/build/index.html')));
+        });
+    }
+
     public routes() {
         // this.app.use('/api/user', userRoutes);
     }
@@ -113,6 +128,7 @@ export class Application {
         // this.mongooseConnect();
         this.bodyParser();
         this.staticPath();
+        this.forAngularApp();
         // this.indexRoute();
         this.routes();
         this.errorHandler();

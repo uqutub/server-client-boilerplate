@@ -1,12 +1,17 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
-  selector: 'my-app',
-  template: '<h1>My First Angular 2 App</h1>'
+  selector: 'ng-app',
+  templateUrl: 'ng2-rc5/Components/app/app.html'
 })
-export class AppComponent { 
+export class AppComponent {
 
-  constructor() {
+  constructor(private router: Router) {
+
   }
-  
+
+  customers() {
+    this.router.navigate(['customers']);
+  }
 }
