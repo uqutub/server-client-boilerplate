@@ -4,8 +4,8 @@
   "description": "Invoice Generator",
   "main": "index.js",
   "scripts": {
-    "start:dev": "gulp",
-    "start": "node server/build/app.js",
+    "start": "gulp",
+    "start:server": "node server/build/app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -49,5 +49,8 @@
     "zone.js": "^0.6.12",
     "angular2-in-memory-web-api": "0.0.15",
     "bootstrap": "^3.3.6"
+  },
+  "devDependencies": {
+    "gulp-nodemon": "^2.1.0"
   }
 }

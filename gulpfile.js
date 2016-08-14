@@ -2,6 +2,7 @@ var gulp = require('gulp');
 var del = require('del');
 var typescript = require('gulp-typescript');
 var chokidar = require('chokidar');
+var nodemon = require('gulp-nodemon')
 var sequence = require('gulp-sequence');
 var webserver = require('gulp-webserver');
 var serverTSConfig = require('./server/src/tsconfig.json');
@@ -115,6 +116,23 @@ gulp.task('build:server', sequence('clean:server', 'transpile:server'));
 // watch server
 gulp.task('watch:server', sequence('clean:server', 'chokidar:server'));
 
+// start server
+gulp.task('start:server', function () {
+    return nodemon({
+        script: 'server/build/app'
+        , ext: 'js'
+        , watch: ['server/build/**/*.js']
+        , env: { 'NODE_ENV': 'development' }
+    }).once('start', function () {
+        console.log('nodemon started!');
+        setTimeout(function(){
+            gulp.start('serve:client');
+        },5000);
+    }).on('restart', function () {
+        console.log('server restarted!')
+    })
+});
+
 
 // ### endregion Server
 
@@ -198,7 +216,7 @@ gulp.task('chokidar:clientHtml', function () {
     });
 });
 
-// watch client Css
+// watch client C   ss
 gulp.task('chokidar:clientCss', function () {
     return chokidar.watch(path.client.css).on('all', function (event, fileLocation) {
         // console.log(event, fileLocation);
@@ -222,34 +240,30 @@ gulp.task('build:client', sequence('clean:client', 'copy:clientIndex', 'copy:cli
 // watch client task
 gulp.task('watch:client', sequence('clean:client', 'chokidar:clientIndex', 'chokidar:clientIndexCss', 'chokidar:clientHtml', 'chokidar:clientCss', 'copy:clientLibjs', 'copy:clientLibcss', 'copy:clientFonts', 'chokidar:clientTS'));
 
-
 // // Serve Task
-// gulp.task('serve', function () {
-//   gulp.src('dist')
-//     .pipe(webserver({
-//       livereload: true,
-//       open: true,
-//       port: 9089,
-//       directoryListing: {
-//         enable: true,
-//         path: '/index.html'
-//       },
-//       middleware: function(req, res, next) {
-//         var fileName = url.parse(req.url);
-//         fileName = fileName.href.split(fileName.search).join("");
-//         var fileExists = fs.existsSync("./dist/" + fileName);
-//         if (!fileExists) {
-//             req.url = "/index.html";
-//         }
-//         return next();
-//       }
-//     }));
-// });
+gulp.task('serve:client', function () {
+    return gulp.src('client/build')
+        .pipe(webserver({
+            livereload: true,
+            open: true,
+            port: 3000,
+            directoryListing: {
+                enable: true,
+                path: '/index.html'
+            },
+            //   middleware: function(req, res, next) {
+            //     var fileName = url.parse(req.url);
+            //     fileName = fileName.href.split(fileName.search).join("");
+            //     var fileExists = fs.existsSync("./client/build" + fileName);
+            //     if (!fileExists) {
+            //         req.url = "/index.html";
+            //     }
+            //     return next();
+            //   }
+        }));
+});
 
 // ### endregion Client
 
-// application run
-// gulp.task('run', function(){ })
-
 // task for development mode 
-gulp.task('default', sequence('watch:server', 'watch:client'));
+gulp.task('default', sequence('watch:server', 'watch:client', 'start:server'));
