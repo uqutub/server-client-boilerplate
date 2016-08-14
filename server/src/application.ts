@@ -9,25 +9,25 @@ import * as bodyParser from 'body-parser';
 import * as logger from 'morgan';
 import * as mongoose from 'mongoose';
 
-export class ApplicationClass {
+export class Application {
     private app;
-    private server;
-    private port: number;
+    private httpServer;
+    private address: { port: number, host: string } = { port: 0, host: null };
     private host: string;
     private enviroment: string = 'dev';
 
     constructor() {
         this.app = express();
-        this.server = http.createServer(this.app);
+        this.httpServer = http.createServer(this.app);
     }
 
     public setPort(port: number = 3000) {
-        this.port = process.env.PORT || port;
+        this.address.port = process.env.PORT || port;
     }
 
     public staticPath() {
         // defining static path for current project
-        this.app.use(express.static(path.join(__dirname, './../../client/build')));
+        this.app.use(express.static(path.join(__dirname, '../../client/build')));
         // this.app.use('/app', express.static(path.resolve(__dirname, 'app')));
         // this.app.use('/libs', express.static(path.resolve(__dirname, 'libs')));
     }
@@ -98,9 +98,11 @@ export class ApplicationClass {
     }
 
     public startServerListing() {
-        this.server.listen(this.port, (r) => {
-            this.port = this.server.address().port;
-            console.log('server is running on http://localhost:' + this.port + '/');
+        this.httpServer.listen(this.address.port, (r) => {
+            // this.address = this.httpServer.address();
+            this.address.port = this.httpServer.address().port;
+            this.address.host = this.httpServer.address().address;
+            console.log('server is running on http://localhost:' + this.address.port + '/');
         });
     }
 
@@ -111,7 +113,7 @@ export class ApplicationClass {
         // this.mongooseConnect();
         this.bodyParser();
         this.staticPath();
-        this.indexRoute();
+        // this.indexRoute();
         this.routes();
         this.errorHandler();
         this.startServerListing();
