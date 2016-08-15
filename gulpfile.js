@@ -12,8 +12,8 @@ var ng2AppFolder = 'ng2-rc5';
 
 var path = {
     server: {
-        ts: './server/src/**/*.ts',
-        dist: './server/build'
+        ts: './server/src/**/*.ts'
+        , dist: './server/build'
     },
     client: {
         libjs: [
@@ -38,16 +38,16 @@ var path = {
         libfonts: [
             // 'node_modules/materialize-css/dist/fonts/**/*'
             // , 'node_modules/mdi/fonts/**/*'
-        ],
-        index: 'client/src/index.html',
-        indexcss: 'client/src/styles.css',
-        html: 'client/src/' + ng2AppFolder + '/**/*.html',
-        css: 'client/src/' + ng2AppFolder + '/**/*.css',
-        ts: 'client/src/' + ng2AppFolder + '/**/*.ts',
-        dist: 'client/build',
-        distapp: 'client/build/' + ng2AppFolder,
-        distlib: 'client/build/lib',
-        distfonts: 'client/build/fonts'
+        ]
+        , index: 'client/src/index.html'
+        , indexcss: 'client/src/styles.css'
+        , html: 'client/src/' + ng2AppFolder + '/**/*.html'
+        , css: 'client/src/' + ng2AppFolder + '/**/*.css'
+        , ts: 'client/src/' + ng2AppFolder + '/**/*.ts'
+        , dist: 'client/build'
+        , distapp: 'client/build/' + ng2AppFolder
+        , distlib: 'client/build/lib'
+        , distfonts: 'client/build/fonts'
     }
 };
 
@@ -104,8 +104,7 @@ gulp.task('chokidar:server', function () {
     return chokidar.watch(path.server.ts).on('all', function (event, fileLocation) {
         // console.log(event, fileLocation)
         // chnage location from src to build and then remove file name...
-        var fileDistination = fileLocation.replace("src", "build"); // replace src to dist
-        fileDistination = fileDistination.replace(fileDistination.split('\\').pop(), ''); // remove file name from the end
+        var fileDistination = modifyStringForDestination(fileLocation);
         transpileTypeScript(fileLocation, fileDistination, 'server');
     });
 });
@@ -125,9 +124,9 @@ gulp.task('start:server', function () {
         , env: { 'NODE_ENV': 'development' }
     }).once('start', function () {
         console.log('nodemon started!');
-        setTimeout(function(){
-            gulp.start('serve:client');
-        },5000);
+        // setTimeout(function(){
+        //     gulp.start('serve:client');
+        // },5000);
     }).on('restart', function () {
         console.log('server restarted!')
     })
@@ -145,25 +144,29 @@ gulp.task('clean:client', function () {
 
 // Copy Index
 gulp.task('copy:clientIndex', function () {
-    return gulp.src(path.client.index)
-        .pipe(gulp.dest(path.client.dist));
+    return copyingFile(path.client.index, path.client.dist); 
+    // return gulp.src(path.client.index)
+    //     .pipe(gulp.dest(path.client.dist));
 });
 
 // Copy Index CSS
 gulp.task('copy:clientIndexCss', function () {
-    return gulp.src(path.client.indexcss)
-        .pipe(gulp.dest(path.client.dist));
+    return copyingFile(path.client.indexcss, path.client.dist);
+    // return gulp.src(path.client.indexcss)
+    //     .pipe(gulp.dest(path.client.dist));
 });
 // Copy Html
 gulp.task('copy:clientHtml', function () {
-    return gulp.src(path.client.html)
-        .pipe(gulp.dest(path.client.distapp));
+    return copyingFile(path.client.html, path.client.distapp);
+    // return gulp.src(path.client.html)
+    //     .pipe(gulp.dest(path.client.distapp));
 });
 
 // Copy Css
 gulp.task('copy:clientCss', function () {
-    return gulp.src(path.client.css)
-        .pipe(gulp.dest(path.client.distapp));
+    return copyingFile(path.client.css, path.client.distapp);
+    // return gulp.src(path.client.css)
+    //     .pipe(gulp.dest(path.client.distapp));
 });
 
 // copy Libs
@@ -174,8 +177,9 @@ gulp.task('copy:clientLibjs', function () {
     });
 });
 gulp.task('copy:clientLibcss', function () {
-    return gulp.src(path.client.libcss)
-        .pipe(gulp.dest(path.client.distlib));
+    return copyingFile(path.client.libcss, path.client.distlib);
+    // return gulp.src(path.client.libcss)
+    //     .pipe(gulp.dest(path.client.distlib));
 });
 
 // copy Fonts
@@ -266,4 +270,4 @@ gulp.task('serve:client', function () {
 // ### endregion Client
 
 // task for development mode 
-gulp.task('default', sequence('watch:server', 'watch:client', 'start:server'));
+gulp.task('default', sequence('watch:server', 'watch:client'));

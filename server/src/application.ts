@@ -104,7 +104,7 @@ export class Application {
 
     private renderAngularPage(routes) {
         this.app.use(routes, (req: express.Request, res: express.Response) => {
-            res.sendFile(path.join(path.join(__dirname, '../../client/build/index.html')));
+            res.sendFile(path.join(__dirname, '../../client/build/index.html'));
         });
     }
 

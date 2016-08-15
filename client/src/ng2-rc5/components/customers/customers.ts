@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'customers',
-  templateUrl: 'ng2-rc5/Components/customers/customers.html'
+  selector: 'customers'
+  , templateUrl: 'ng2-rc5/components/customers/customers.html'
 })
-export class CustomerComponent { 
+export class CustomerComponent {
 
   constructor() {
   }
-  
+
 }
