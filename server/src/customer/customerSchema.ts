@@ -4,7 +4,7 @@
 import * as mongoose from 'mongoose'; 	//import mongodb
 
 // Creating Schema for customer in MongoDB
-let customerSchema = new mongoose.Schema({									//Create Schema for User Collection
+let customerSchema = new mongoose.Schema({
     name: String,
     company: String,
     address: String,

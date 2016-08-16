@@ -144,7 +144,7 @@ gulp.task('clean:client', function () {
 
 // Copy Index
 gulp.task('copy:clientIndex', function () {
-    return copyingFile(path.client.index, path.client.dist); 
+    return copyingFile(path.client.index, path.client.dist);
     // return gulp.src(path.client.index)
     //     .pipe(gulp.dest(path.client.dist));
 });
@@ -246,25 +246,24 @@ gulp.task('watch:client', sequence('clean:client', 'chokidar:clientIndex', 'chok
 
 // // Serve Task
 gulp.task('serve:client', function () {
-    return gulp.src('client/build')
-        .pipe(webserver({
-            livereload: true,
-            open: true,
-            port: 3000,
-            directoryListing: {
-                enable: true,
-                path: '/index.html'
-            },
-            //   middleware: function(req, res, next) {
-            //     var fileName = url.parse(req.url);
-            //     fileName = fileName.href.split(fileName.search).join("");
-            //     var fileExists = fs.existsSync("./client/build" + fileName);
-            //     if (!fileExists) {
-            //         req.url = "/index.html";
-            //     }
-            //     return next();
-            //   }
-        }));
+    return gulp.src('client/build').pipe(webserver({
+        livereload: true,
+        open: true,
+        port: 3000,
+        directoryListing: {
+            enable: true,
+            path: '/index.html'
+        },
+        //   middleware: function(req, res, next) {
+        //     var fileName = url.parse(req.url);
+        //     fileName = fileName.href.split(fileName.search).join("");
+        //     var fileExists = fs.existsSync("./client/build" + fileName);
+        //     if (!fileExists) {
+        //         req.url = "/index.html";
+        //     }
+        //     return next();
+        //   }
+    }));
 });
 
 // ### endregion Client

@@ -8,4 +8,5 @@ export interface ICustomer {
     mobile: string;
     salesTax: string;
     ntn: string;
+    dated: number;
 }

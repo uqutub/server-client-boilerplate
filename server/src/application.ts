@@ -8,24 +8,37 @@ import * as path from 'path';
 import * as bodyParser from 'body-parser';
 import * as logger from 'morgan';
 import * as mongoose from 'mongoose';
+import {devCredentials, prodCredentials} from './credentials';
+
+import {router as customerRoutes} from './customer';
+import {router as productRoutes} from './product';
 
 export class Application {
     private app;
-    private httpServer;
+    private httpServer: http.Server;
     private address: { port: number, host: string } = { port: 0, host: null };
-    private host: string;
-    private enviroment: string = 'dev';
+    private env: string; // enviroment 'dev' || 'prod' 
+    private mongoDbConStr: string;
 
-    constructor() {
+    constructor(env: string = 'dev') {
         this.app = express();
         this.httpServer = http.createServer(this.app);
+        this.env = env;
+    }
+
+    private enviroment() {
+        if (this.env === 'dev') {
+            this.mongoDbConStr = `mongodb://${devCredentials.mongolab.user}:${devCredentials.mongolab.password}@ds161245.mlab.com:61245/${devCredentials.mongolab.db}`;
+        } else if (this.env === 'prod') {
+            this.mongoDbConStr = `mongodb://${prodCredentials.mongolab.user}:${prodCredentials.mongolab.password}@ds161245.mlab.com:61245/${prodCredentials.mongolab.db}`;
+        }
     }
 
     public setPort(port: number = 3000) {
         this.address.port = process.env.PORT || port;
     }
 
-    public staticPath() {
+    private staticPath() {
         // defining static path for current project
         this.app.use(express.static(path.join(__dirname, '../../client/build')));
         // this.app.use('/app', express.static(path.resolve(__dirname, 'app')));
@@ -37,21 +50,21 @@ export class Application {
             "/home",
             "/customers"
         ];
-        
-        this.renderAngularPage(angularRoutes)
+
+        this.renderAngularPage(angularRoutes);
     }
 
-    public bodyParser() {
+    private bodyParser() {
         // this.app.use(bodyParser.urlencoded({limit: '1mb', extended: true, parameterLimit: 10000})); // parse application/x-www-form-urlencoded (to support URL-encoded bodies)
         this.app.use(bodyParser.urlencoded({ limit: '1mb', extended: true }));
         this.app.use(bodyParser.json({ limit: '1mb' }));	// Using bodyparser for getting post request variables (to support application/JSON-encoded bodies)
     }
 
-    public logger() {
-        this.app.use(logger(this.enviroment));
+    private logger() {
+        this.app.use(logger(this.env));
     }
 
-    public customLogger() {
+    private customLogger() {
         //logger middle ware
         this.app.use((req, res, next) => {
             console.log('Logging: ' + req.method.toString() + ': ' + req.url.toString());
@@ -59,11 +72,11 @@ export class Application {
         });
     }
 
-    public mongooseConnect(connection: string = 'mongodb://localhost:27017/demoDB') {
-        mongoose.connect(connection);
+    public mongooseConnect() {
+        mongoose.connect(this.mongoDbConStr);
     }
 
-    public errorHandler() {
+    private errorHandler() {
         /// catch 404 and forwarding to error handler
         this.app.use((req, res, next) => {
             var err: any = new Error('Not Found');
@@ -71,11 +84,10 @@ export class Application {
             next(err);
         });
 
-        if (this.enviroment === 'dev') {
+        if (this.env === 'dev') {
             // development error handler will print stacktrace
             this.app.use((err, req, res, next) => {
-                res.status(err.status || 500);
-                res.send('error', {
+                res.status(err.status || 500).send({
                     message: err.message,
                     error: err
                 });
@@ -83,8 +95,7 @@ export class Application {
         } else {
             // production error handler no stacktraces leaked to user
             this.app.use((err, req, res, next) => {
-                res.status(err.status || 500);
-                res.send('error', {
+               res.status(err.status || 500).send({
                     message: err.message,
                     error: {}
                 });
@@ -98,7 +109,7 @@ export class Application {
     }
 
     private renderIndex(req: express.Request, res: express.Response) {
-        res.send('Hellow World from Express');
+        res.status(200).send('Hellow World from Express');
         // res.sendFile(path.resolve(__dirname, 'index.html'));
     }
 
@@ -109,10 +120,12 @@ export class Application {
     }
 
     public routes() {
-        // this.app.use('/api/user', userRoutes);
+        // REST APIs
+        this.app.use('/api/customer', customerRoutes);
+        this.app.use('/api/product', productRoutes);
     }
 
-    public startServerListing() {
+    private startServerListing() {
         this.httpServer.listen(this.address.port, (r) => {
             // this.address = this.httpServer.address();
             this.address.port = this.httpServer.address().port;
@@ -122,10 +135,11 @@ export class Application {
     }
 
     public startServer() {
+        this.enviroment();
         this.setPort();
         this.logger();
         // this.customLogger();
-        // this.mongooseConnect();
+        this.mongooseConnect();
         this.bodyParser();
         this.staticPath();
         this.forAngularApp();
