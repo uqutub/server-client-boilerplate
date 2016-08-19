@@ -1,17 +1,19 @@
-import {CustomerService, ICustomer} from './customer/customer';
-import {ProductService, IProduct} from './product/product';
 import {HttpService} from './httpService';
+import {serverAPI} from './config';
+
+// stores
+import {HandleStore, ProductStore, CustomerStore} from '../stores/index';
 
 export const ApplicationServices: any[] = [
-    CustomerService
-    , ProductService
-    , HttpService
+    HttpService
+    , HandleStore
+    , ProductStore
+    , CustomerStore
 ];
 
 export {
-    CustomerService
-    , ICustomer
-    , ProductService
-    , IProduct
-    , HttpService
+    HttpService
+    , HandleStore
+    , ProductStore
+    , CustomerStore
 };

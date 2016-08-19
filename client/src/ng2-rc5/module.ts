@@ -8,31 +8,30 @@ import { AppComponent }  from './components/app/app';   //bootstrap component
 
 import { AppRoutes, ApplicationComponents } from './routes';       // application components
 
-import { ApplicationServices } from './services/index'; // application services
+import { HttpService, HandleStore, CustomerStore, ProductStore } from './services/index'; // application services
 
-import { ApplicationPipes } from './pipes/index';       // application pipes
+// import { ApplicationPipes } from './pipes/index';       // application pipes
 
 
 @NgModule({
-  // imports
-  imports: [
+  imports: [  // imports
     BrowserModule
     , RouterModule.forRoot(AppRoutes)
     , FormsModule
     , HttpModule
   ]
-  // declarations
-  , declarations: [
+  , declarations: [ // declarations
     AppComponent
     , ...ApplicationComponents
   ]
-  // bootstrap
-  , bootstrap: [
+  , bootstrap: [  // bootstrap
     AppComponent
   ]
-  // providers
-  , providers: [
-    ...ApplicationServices
+  , providers: [  // providers
+    HttpService
+    , HandleStore
+    // , CustomerStore
+    //, ProductStore
   ]
 })
 export class AppModule { }

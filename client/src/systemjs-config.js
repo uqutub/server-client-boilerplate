@@ -9,14 +9,16 @@
     'app':                        'ng2-rc5', // 'dist',
     '@angular':                   'lib/@angular',
     'angular2-in-memory-web-api': 'lib/angular2-in-memory-web-api',
-    'rxjs':                       'lib/rxjs'
+    'rxjs':                       'lib/rxjs',
+    'immutable':                  'lib/immutable.js'
   };
   
   // packages tells the System loader how to load when no filename and/or no extension
   var packages = {
     'app':                        { main: 'main.js',  defaultExtension: 'js' },
-    'rxjs':                       { defaultExtension: 'js' },
     'angular2-in-memory-web-api': { main: 'index.js', defaultExtension: 'js' },
+    'rxjs':                       { defaultExtension: 'js' },
+    // 'immutable':                  { defaultExtension: 'js' },
   };
   
   var ngPackageNames = [

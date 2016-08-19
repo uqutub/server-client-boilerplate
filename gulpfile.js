@@ -27,6 +27,7 @@ var path = {
             , { dist: 'lib', src: 'node_modules/reflect-metadata/Reflect.js.map' }
             , { dist: 'lib', src: 'node_modules/systemjs/dist/system.src.js' }
             , { dist: 'lib', src: 'client/src/systemjs-config.js' }
+            , { dist: 'lib', src: 'node_modules/immutable/dist/immutable.js' }
             // , { dist: 'lib/angularfire2', src: 'node_modules/angularfire2/**' }
             // , { dist: 'lib/ng2-img-cropper', src: 'node_modules/ng2-img-cropper/**' }
             // , { dist: 'lib', src: 'node_modules/angular2-tag-input/dist/tag-input.component.js' }
