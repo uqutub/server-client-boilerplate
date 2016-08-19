@@ -1,6 +1,6 @@
 import {HandleStore} from './handleStore';
-import {CustomerStore, ICustomer} from './customer/customer';
-import {ProductStore, IProduct} from './product/product';
+import {CustomerStore} from './customer/customer';
+import {ProductStore} from './product/product';
 
 export const ApplicationStores: any[] = [
     HandleStore
@@ -11,7 +11,5 @@ export const ApplicationStores: any[] = [
 export {
     HandleStore
     , CustomerStore
-    , ICustomer
     , ProductStore
-    , IProduct
 };

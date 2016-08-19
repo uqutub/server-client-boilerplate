@@ -1,1 +1,7 @@
 <h1>Customers</h1>
+---------------->>>
+<div *ngFor="let customer of customers | async">
+    {{customer._id}}
+</div>
+
+<add-customer></add-customer>

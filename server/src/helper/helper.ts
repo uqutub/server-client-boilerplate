@@ -1,3 +1,5 @@
+///<reference path="../../../typings/index.d.ts" />
+
 import * as express from 'express';
 
 type handlerType = (err: any, data: any, resolve: any, reject: any, exResponse?: express.Response) => void;

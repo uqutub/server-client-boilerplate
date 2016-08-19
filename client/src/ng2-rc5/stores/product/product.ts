@@ -3,6 +3,7 @@ import {Injectable} from '@angular/core'
 import Rx = require('rxjs/Rx');
 import {List} from 'immutable';
 
+import {IProduct} from '../../models/index';
 import {returnObjType} from '../../helper/helper';
 import {HttpService} from '../../services/index';
 import {HandleStore} from '../handleStore';
@@ -17,21 +18,21 @@ export class ProductStore {
 
     }
 
-    loadData(): Rx.Observable<returnObjType> {
+    loadData(): void {
         let _observable = this.http.get('/api/product/');
-        return this.store.get(_observable, this.products$);
+        this.store.get(_observable, this.products$).subscribe(res => {
+            if (!res.err) {
+                this.once = true;
+            }
+        });
     }
 
     get(): Rx.Observable<List<IProduct>> {
-        if (!this.once) {
+        if (this.once) {
             return this.products$.asObservable();
         } else {
-            this.loadData().subscribe(res => {
-                if (!res.err) {
-                    this.once = true;
-                    return this.products$.asObservable();
-                }
-            });;
+            this.loadData();
+            return this.products$.asObservable();
         }
     }
 
@@ -52,11 +53,11 @@ export class ProductStore {
 }
 
 
-// interface of product
-export interface IProduct {
-    _id?: string;
-    name: string;
-    category?: string;
-    cost: number;
-    dated?: number;
-}
+// // interface of product
+// export interface IProduct {
+//     _id?: string;
+//     name: string;
+//     category?: string;
+//     cost: number;
+//     dated?: number;
+// }

@@ -3,7 +3,8 @@ import { Component } from '@angular/core';
 import Rx = require('rxjs/Rx');
 import {List} from 'immutable';
 
-import {ProductStore, IProduct} from '../../stores/index';
+import {IProduct} from '../../models/index';
+import {ProductStore} from '../../stores/index';
 
 @Component({
   selector: 'products'
@@ -15,8 +16,8 @@ export class ProductComponent {
   products: Rx.Observable<List<IProduct>>;
 
   constructor(private store: ProductStore) {
-    console.log('productttttttttttttttttttttt ')
-    // this.products = this.store.get();
+    // console.log('productttttttttttttttttttttt ')
+    this.products = this.store.get();
   }
 
 

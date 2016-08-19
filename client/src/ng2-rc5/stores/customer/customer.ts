@@ -1,9 +1,9 @@
 import {Injectable} from '@angular/core';
 // import {BehaviorSubject, Observable} from 'rxjs';
-// import * as Rx from 'rxjs';
 import Rx = require('rxjs/Rx');
 import {List} from 'immutable';
 
+import {ICustomer} from '../../models/index';
 import {returnObjType} from '../../helper/helper';
 import {HttpService} from '../../services/index';
 import {HandleStore} from '../handleStore';
@@ -19,21 +19,21 @@ export class CustomerStore {
 
     }
 
-    loadData(): Rx.Observable<returnObjType> {
+    loadData(): void {
         let _observable = this.http.get('/api/customer/');
-        return this.store.get(_observable, this.customers$);
+        this.store.get(_observable, this.customers$).subscribe(res => {
+            if (!res.err) {
+                this.once = true;
+            }
+        });
     }
 
     get(): Rx.Observable<List<ICustomer>> {
-        if (!this.once) {
+        if (this.once) {
             return this.customers$.asObservable();
         } else {
-            this.loadData().subscribe(res => {
-                if (!res.err) {
-                    this.once = true;
-                    return this.customers$.asObservable();
-                }
-            });;
+            this.loadData();
+            return this.customers$.asObservable();
         }
     }
 
@@ -54,18 +54,18 @@ export class CustomerStore {
 
 }
 
-// interface of customer
-export interface ICustomer {
-    _id?: string;
-    name: string;
-    company: string;
-    address: string;
-    phone: string;
-    mobile: string;
-    salesTax: string;
-    ntn: string;
-    dated: number;
-}
+// // interface of customer
+// export interface ICustomer {
+//     _id?: string;
+//     name: string;
+//     company: string;
+//     address: string;
+//     phone: string;
+//     mobile: string;
+//     salesTax: string;
+//     ntn: string;
+//     dated: number;
+// }
 
 
 
