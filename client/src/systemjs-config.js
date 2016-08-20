@@ -11,7 +11,8 @@
     'angular2-in-memory-web-api': 'lib/angular2-in-memory-web-api',
     'rxjs':                       'lib/rxjs',
     'immutable':                  'lib/immutable.js',
-    'bootstrap':                  'lib/bootstrap/js/bootstrap.min.js'
+    // 'jquery':                     'lib/jquery.min.js',
+    // 'bootstrap':                  'lib/bootstrap/js/bootstrap.min.js'
   };
   
   // packages tells the System loader how to load when no filename and/or no extension

@@ -28,7 +28,7 @@ var path = {
             , { dist: 'lib', src: 'node_modules/systemjs/dist/system.src.js' }
             , { dist: 'lib', src: 'client/src/systemjs-config.js' }
             , { dist: 'lib', src: 'node_modules/immutable/dist/immutable.js' }
-            , { dist: 'lib', src: 'node_modules/jquery/dist/jquery.min' }
+            , { dist: 'lib', src: 'node_modules/jquery/dist/jquery.min.js' }
             , { dist: 'lib/bootstrap', src: 'node_modules/bootstrap/dist/**' }
             // , { dist: 'lib/angularfire2', src: 'node_modules/angularfire2/**' }
             // , { dist: 'lib/ng2-img-cropper', src: 'node_modules/ng2-img-cropper/**' }

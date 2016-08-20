@@ -6,6 +6,7 @@
 /// <reference path="globals/express/index.d.ts" />
 /// <reference path="globals/glob-stream/index.d.ts" />
 /// <reference path="globals/glob/index.d.ts" />
+/// <reference path="globals/jquery/index.d.ts" />
 /// <reference path="globals/mime/index.d.ts" />
 /// <reference path="globals/minimatch/index.d.ts" />
 /// <reference path="globals/morgan/index.d.ts" />

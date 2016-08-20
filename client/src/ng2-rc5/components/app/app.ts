@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import {CustomerStore, ProductStore} from '../../stores/index'; 
 
 @Component({
-  selector: 'body'
+  selector: 'app-root'
   , templateUrl: 'ng2-rc5/components/app/app.html'
   , providers: [CustomerStore, ProductStore]
   , host: {
@@ -15,7 +15,11 @@ import {CustomerStore, ProductStore} from '../../stores/index';
 export class AppComponent {
 
   constructor(private router: Router) {
+    
+  }
 
+  ngOnInit(){
+   
   }
 
   home() {
