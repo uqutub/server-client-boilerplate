@@ -1,7 +1,7 @@
 <h1>Customers</h1>
----------------->>>
-<div *ngFor="let customer of customers | async">
-    {{customer._id}}
-</div>
+
+<hr/>
 
 <add-customer></add-customer>
+
+<customer-view *ngFor="let customer of customers | async" [customer]="customer"></customer-view>

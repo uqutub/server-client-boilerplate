@@ -16,7 +16,7 @@ import {CustomerStore} from '../../../stores/index';
     <input type="button" name="submit" value="submit" (click)="add(name, company, address, phone, mobile, stx, ntn);"/>
  `
 })
-export class AddCustomer {
+export class CustomerAddComponent {
 
     constructor(private store: CustomerStore) {
 

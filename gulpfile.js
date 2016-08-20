@@ -156,6 +156,7 @@ gulp.task('copy:clientIndexCss', function () {
     // return gulp.src(path.client.indexcss)
     //     .pipe(gulp.dest(path.client.dist));
 });
+
 // Copy Html
 gulp.task('copy:clientHtml', function () {
     return copyingFile(path.client.html, path.client.distapp);
@@ -268,6 +269,12 @@ gulp.task('serve:client', function () {
 });
 
 // ### endregion Client
+
+// watch client and server files
+gulp.task('watch', function(){
+  gulp.start('watch:server');
+  gulp.start('watch:client');  
+});
 
 // task for development mode 
 gulp.task('default', sequence('watch:server', 'watch:client'));

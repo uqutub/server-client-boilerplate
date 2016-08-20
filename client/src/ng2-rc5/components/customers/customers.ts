@@ -3,7 +3,8 @@ import { Component } from '@angular/core';
 import Rx = require('rxjs');
 import {List} from 'immutable';
 
-import {AddCustomer} from './addCustomer/addCustomer';
+import {CustomerAddComponent} from './addCustomer/addCustomer';
+import {CustomerViewComponent} from './customer/customer';
 
 import {ICustomer} from '../../models/index';
 import {CustomerStore} from '../../stores/index';
@@ -11,10 +12,10 @@ import {CustomerStore} from '../../stores/index';
 @Component({
   selector: 'customers'
   , templateUrl: 'ng2-rc5/components/customers/customers.html'
-  , directives: [AddCustomer]
+  , directives: [CustomerAddComponent, CustomerViewComponent]
   , providers: [CustomerStore]
 })
-export class CustomerComponent {
+export class CustomersComponent {
 
   customers: Rx.Observable<List<ICustomer>>;
 
