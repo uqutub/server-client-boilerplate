@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import Rx = require('rxjs/Rx');
 import {List} from 'immutable';
 
-import {ProductAddComponent} from './addproduct/addProduct';
+import {ProductAddComponent} from './addProduct/addProduct';
 import {ProductViewComponent} from './viewProduct/viewProduct';
 
 import {IProduct} from '../../models/index';
