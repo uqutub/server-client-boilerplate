@@ -1,7 +1,14 @@
-<h1>Customers</h1>
+<h3>Customers</h3>
 
 <hr/>
+<h5 (click)="showNewPanel=!showNewPanel"><a>Add Customer</a></h5>
 
-<add-customer></add-customer>
+<div [hidden]="!showNewPanel">
+    <add-customer></add-customer>
+</div>
+
+<p>
+    <br>
+</p>
 
 <customer-view *ngFor="let customer of customers | async" [customer]="customer"></customer-view>

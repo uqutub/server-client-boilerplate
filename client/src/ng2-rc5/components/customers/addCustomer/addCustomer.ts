@@ -6,14 +6,14 @@ import {CustomerStore} from '../../../stores/index';
 @Component({
     selector: 'add-customer',
     template: `
-    <input type="text" name="name" #name placeholder="customer name" />
-    <input type="text" name="company" #company placeholder="company name" />
-    <input type="text" name="address" #address placeholder="address" />
-    <input type="text" name="phone" #phone placeholder="phone" />
-    <input type="text" name="mobile" #mobile placeholder="mobile" />
-    <input type="text" name="stx" #stx placeholder="sales tax #" />
-    <input type="text" name="ntn" #ntn placeholder="ntn #" />
-    <input type="button" name="submit" value="submit" (click)="add(name, company, address, phone, mobile, stx, ntn);"/>
+    <input type="text" class="form-control" name="name" #name placeholder="customer name" />
+    <input type="text" class="form-control" name="company" #company placeholder="company name" />
+    <input type="text" class="form-control" name="address" #address placeholder="address" />
+    <input type="text" class="form-control" name="phone" #phone placeholder="phone" />
+    <input type="text" class="form-control" name="mobile" #mobile placeholder="mobile" />
+    <input type="text" class="form-control" name="stx" #stx placeholder="sales tax #" />
+    <input type="text" class="form-control" name="ntn" #ntn placeholder="ntn #" />
+    <input type="button" class="btn btn-default" name="submit" value="Add +" (click)="add(name, company, address, phone, mobile, stx, ntn);"/>
  `
 })
 export class CustomerAddComponent {
