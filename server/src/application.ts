@@ -96,7 +96,7 @@ export class Application {
         } else {
             // production error handler no stacktraces leaked to user
             this.app.use((err, req, res, next) => {
-               res.status(err.status || 500).send({
+                res.status(err.status || 500).send({
                     message: err.message,
                     error: {}
                 });
@@ -126,6 +126,27 @@ export class Application {
         this.app.use('/api/product', productRoutes);
     }
 
+    private allowOrigin() {
+        this.app.use((req: express.Request, res: express.Response, next: express.NextFunction) => {
+
+            // Website you wish to allow to connect
+            res.setHeader('Access-Control-Allow-Origin', '*');  
+
+            // Request methods you wish to allow
+            res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
+
+            // Request headers you wish to allow
+            res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+
+            // Set to true if you need the website to include cookies in the requests sent
+            // to the API (e.g. in case you use sessions)
+            res.setHeader('Access-Control-Allow-Credentials', "true");
+
+            // Pass to next layer of middleware
+            next();
+        });
+    }
+
     private startServerListing() {
         this.httpServer.listen(this.address.port, (r) => {
             // this.address = this.httpServer.address();
@@ -143,6 +164,7 @@ export class Application {
         this.mongooseConnect();
         this.bodyParser();
         this.staticPath();
+        this.allowOrigin();
         this.forAngularApp();
         // this.indexRoute();
         this.routes();
