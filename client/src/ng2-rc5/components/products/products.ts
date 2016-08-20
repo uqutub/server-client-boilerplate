@@ -13,7 +13,6 @@ import {ProductStore} from '../../stores/index';
   selector: 'products'
   , templateUrl: 'ng2-rc5/components/products/products.html'
   , directives: [ProductAddComponent, ProductViewComponent]
-  , providers: [ProductStore]
 })
 export class ProductComponent {
 

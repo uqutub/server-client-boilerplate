@@ -28,8 +28,9 @@ export let controller = {
         }
     },
     delete: (request: express.Request, response: express.Response) => {
-        if (request.params.id === request.body.id) {
-            productModel.delete(response, request.body.id).then(data => {
+        // if (request.params.id === request.body.id) {
+        if (request.params.id) {
+            productModel.delete(response, request.params.id).then(data => {
                 responseJsonHandler(null, data, response);
             });
         } else {

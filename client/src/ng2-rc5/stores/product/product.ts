@@ -15,7 +15,7 @@ export class ProductStore {
     private products$: Rx.BehaviorSubject<List<IProduct>> = new Rx.BehaviorSubject(List([]));
 
     constructor(private http: HttpService, private store: HandleStore) {
-
+        console.log('Observable store for product.... Contructor Loaded');
     }
 
     loadData(): void {
@@ -47,8 +47,8 @@ export class ProductStore {
     }
 
     delete(id: string): Rx.Observable<returnObjType> {
-        let _observable = this.http.delete('/api/product/' + id + '/?');
-        return this.store.update(id, _observable, this.products$);
+        let _observable = this.http.delete('/api/product/' + id);
+        return this.store.delete(id, _observable, this.products$);
     }
 }
 

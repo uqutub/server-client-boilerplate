@@ -54,7 +54,7 @@ export class Customer implements ICustomer {
 				if (err) {
 					responseHandler(err, data, resolve, reject, expressResponse);
 				} else {
-					CustomerCollection.remove(data, (err) => {
+					data.remove((err) => {
 						responseHandler(err, null, resolve, reject, expressResponse);
 					});
 				}

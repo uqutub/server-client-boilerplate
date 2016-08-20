@@ -16,7 +16,7 @@ export class CustomerStore {
 
 
     constructor(private http: HttpService, private store: HandleStore) {
-
+        console.log('Observable store for customer.... Contructor Loaded');
     }
 
     loadData(): void {
@@ -48,8 +48,8 @@ export class CustomerStore {
     }
 
     delete(id: string): Rx.Observable<returnObjType> {
-        let _observable = this.http.delete('/api/customer/' + id + '/?');
-        return this.store.update(id, _observable, this.customers$);
+        let _observable = this.http.delete('/api/customer/' + id);
+        return this.store.delete(id, _observable, this.customers$);
     }
 
 }

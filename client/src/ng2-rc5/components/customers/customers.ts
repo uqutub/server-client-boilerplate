@@ -13,7 +13,6 @@ import {CustomerStore} from '../../stores/index';
   selector: 'customers'
   , templateUrl: 'ng2-rc5/components/customers/customers.html'
   , directives: [CustomerAddComponent, CustomerViewComponent]
-  , providers: [CustomerStore]
 })
 export class CustomersComponent {
 
@@ -21,7 +20,6 @@ export class CustomersComponent {
   showNewPanel: boolean = false;
 
   constructor(private store: CustomerStore) {
-    // console.log('Customerrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr');
     this.customers = this.store.get();
   }
 

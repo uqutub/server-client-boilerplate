@@ -44,7 +44,7 @@ export class Product implements IProduct {
                 if (err) {
                     responseHandler(err, data, resolve, reject, response);
                 } else {
-                    ProductCollection.remove(data, (err) => {
+                    data.remove((err) => {
                         responseHandler(err, null, resolve, reject, response);
                     });
                 }

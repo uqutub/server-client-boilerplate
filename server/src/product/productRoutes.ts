@@ -7,6 +7,6 @@ import {controller} from "./productController";
 router.get('/', controller.get);
 router.post('/', controller.post);
 router.put('/:id', controller.put);
-router.put('/:id', controller.post);
+router.delete('/:id', controller.delete);
 
 export {router};

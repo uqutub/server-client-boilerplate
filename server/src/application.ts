@@ -47,8 +47,9 @@ export class Application {
 
     public forAngularApp() {
         let angularRoutes = [
-            "/home",
-            "/customers"
+            "/home"
+            , "/customers"
+            , "/products"
         ];
 
         this.renderAngularPage(angularRoutes);

@@ -6,7 +6,7 @@ import {CustomerStore, ProductStore} from '../../stores/index';
 @Component({
   selector: 'body'
   , templateUrl: 'ng2-rc5/components/app/app.html'
-  // , providers: [CustomerStore, ProductStore]
+  , providers: [CustomerStore, ProductStore]
   , host: {
     class: "container"
   }

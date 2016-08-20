@@ -1,6 +1,7 @@
 import {Component, Input} from '@angular/core';
 
 import {IProduct} from '../../../models/index';
+import {ProductStore} from '../../../stores/index';
 
 @Component({
     selector: 'product-view',
@@ -21,7 +22,7 @@ import {IProduct} from '../../../models/index';
 export class ProductViewComponent {
     @Input() product: IProduct;
 
-    constructor() {
+    constructor(private store: ProductStore) {
         console.log('product viewwww');
     }
 
@@ -31,6 +32,14 @@ export class ProductViewComponent {
 
     d(id: string) {
         console.log('delete product', id);
+        this.store.delete(id).subscribe(res => {
+            console.log('prod del observable: ', res);
+            if(res.err) {
+                //err
+            } else{
+                // sccuess
+            }
+        });
     }
 
 }
