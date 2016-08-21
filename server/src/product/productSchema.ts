@@ -4,7 +4,7 @@
 import * as mongoose from 'mongoose'; 	//import mongodb
 
 // Creating Schema for product in MongoDB
-let productSchema = new mongoose.Schema({
+export let Schema = new mongoose.Schema({
     name: String,
     category: String,
     cost: String,
@@ -17,4 +17,4 @@ let productSchema = new mongoose.Schema({
 //    .exec(callback);
 //}
 
-export let ProductCollection = mongoose.model("Products", productSchema);
+export let ProductCollection = mongoose.model("Products", Schema);

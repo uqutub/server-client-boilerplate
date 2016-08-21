@@ -3,22 +3,22 @@
 //import moongose
 import * as mongoose from 'mongoose'; 	//import mongodb
 
+//import customer and product schema for embeded doc (sub-document)
+import {Schema as customerSchema} from '../customer/index';
+import {Schema as productSchema} from '../product/index';
+
 // Creating Schema for customer in MongoDB
 export let Schema = new mongoose.Schema({
-    name: String,
-    company: String,
-    address: String,
-    phone: String,
-    mobile: String,
-    salesTax: String,
-    ntn: String,
+    customer: customerSchema,
+    product: [productSchema],
+    total: Number,
     dated: { type: Number, default: Date.now }
 });
 
-//customerSchema.statics.findMax = function (callback) {
+//invoiceSchema.statics.findMax = function (callback) {
 //  this.findOne({ country_id: 10 }) // 'this' now refers to the Member class
 //    .sort('-score')
 //    .exec(callback);
 //}
 
-export let CustomerCollection = mongoose.model("Customers", Schema);
+export let InvoiceCollection = mongoose.model("Invoices", Schema);
