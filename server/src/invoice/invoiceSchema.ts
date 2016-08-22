@@ -15,7 +15,7 @@ export let Schema = new mongoose.Schema({
     dated: { type: Number, default: Date.now }
 });
 
-//invoiceSchema.statics.findMax = function (callback) {
+// invoiceSchema.statics.findMax = function (callback) {
 //  this.findOne({ country_id: 10 }) // 'this' now refers to the Member class
 //    .sort('-score')
 //    .exec(callback);

@@ -1,4 +1,5 @@
 import {Component} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
 selector: 'delete-invoice'
@@ -13,7 +14,9 @@ selector: 'delete-invoice'
 })
 export class DeleteComponent{
     
-    constructor() {
-        
+    constructor(private route: ActivatedRoute) {
+        this.route.params.subscribe((r) => {
+            console.log('params', r);
+        })
     }
 }

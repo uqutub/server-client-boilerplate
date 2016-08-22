@@ -8,7 +8,9 @@ export class Product implements IProduct {
     _id: string;
     name: string;
     category: string;
-    cost: number;
+    qty: number;
+    rate: number;
+    total: number;
     dated: number;
 
     constructor(product?: IProduct) {
@@ -16,7 +18,7 @@ export class Product implements IProduct {
             this._id = product._id;
             this.name = product.name;
             this.category = product.category;
-            this.cost = product.cost;
+            this.rate = product.rate;
         }
     } // constructor
 

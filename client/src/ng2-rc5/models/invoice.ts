@@ -1,5 +1,5 @@
-import { ICustomer } from '../customer/index';
-import { IProduct } from '../product/index';
+import { ICustomer } from './customer';
+import { IProduct } from './product';
 
 // interface of invoice
 export interface IInvoice {

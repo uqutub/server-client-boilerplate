@@ -2,13 +2,15 @@
 import * as express from 'express';
 
 import {IInvoice as Interface} from './IInvoice';
+import {ICustomer} from '../customer/index';
+import {IProduct} from '../product/index';
 import {InvoiceCollection as Collection} from './invoiceSchema';
 import {responseHandler} from '../helper/helper';
 
 export class Invoice implements Interface {
 	_id: string;
-    customer: {};
-    product: [{}];
+    customer: ICustomer;
+    product: [IProduct];
     total: number;
     dated: number;
 
