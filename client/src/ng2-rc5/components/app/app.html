@@ -14,13 +14,12 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li class="" (click)="customers()"><a>Customers</a></li>
-        <li (click)="products()"><a>Products</a></li>
+        <li class="" [routerLink]="['cust']"><a>Customers</a></li>
+        <li [routerLink]="['prod']"><a>Products</a></li>
+        <li [routerLink]="['inv']" ><a>Invoices</a></li>
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
-
-<br />
 
 <router-outlet></router-outlet>

@@ -3,18 +3,23 @@ import { Component } from '@angular/core';
 import Rx = require('rxjs');
 import {List} from 'immutable';
 
-import {CustomerAddComponent} from './addCustomer/addCustomer';
-import {CustomerViewComponent} from './viewCustomer/viewCustomer';
+import {ViewComponent} from './view';
 
 import {ICustomer} from '../../models/index';
 import {CustomerStore} from '../../stores/index';
 
 @Component({
   selector: 'customers'
-  , templateUrl: 'ng2-rc5/components/customers/customers.html'
-  , directives: [CustomerAddComponent, CustomerViewComponent]
+  , template: `
+    <h3>Customers</h3>
+    <hr/>
+    <h5 [routerLink]="['add']"><a>Add Customer</a></h5>
+    <br />
+    <view-customer *ngFor="let customer of customers | async" [customer]="customer"></view-customer>
+  `
+  , directives: [ViewComponent]
 })
-export class CustomersComponent {
+export class IndexComponent {
 
   customers: Rx.Observable<List<ICustomer>>;
   showNewPanel: boolean = false;

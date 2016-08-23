@@ -1,20 +1,29 @@
 import { Component } from '@angular/core';
-// import {Observable} from 'rxjs';
+
 import Rx = require('rxjs/Rx');
 import {List} from 'immutable';
 
-import {ProductAddComponent} from './addProduct/addProduct';
-import {ProductViewComponent} from './viewProduct/viewProduct';
-
+import {ProductViewComponent as ViewComponent} from './view';
 import {IProduct} from '../../models/index';
 import {ProductStore} from '../../stores/index';
 
 @Component({
   selector: 'products'
-  , templateUrl: 'ng2-rc5/components/products/products.html'
-  , directives: [ProductAddComponent, ProductViewComponent]
+  , template: `
+    <h3>Products</h3>
+    <hr/>
+    <h5>
+      <a [routerLink]="['add']">Add Product</a>
+    </h5>
+    <p>
+        <br>
+    </p>
+    <view-product *ngFor="let product of products | async" [product]="product"></view-product>
+  ` 
+//   , templateUrl: 'ng2-rc5/components/products/products.html'
+  , directives: [ViewComponent]
 })
-export class ProductComponent {
+export class IndexComponent {
 
   products: Rx.Observable<List<IProduct>>;
   showNewPanel: boolean = false;

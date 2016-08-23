@@ -7,7 +7,7 @@ selector: 'add-invoice'
 , template: `
     <h3>Add Invoice</h3>
     <hr/>
-    <h5 (click)="showNewPanel=!showNewPanel"><a>Show Invoices</a></h5>
+    <h5 [routerLink]="['../']"><a>Show Invoices</a></h5>
     <form>
         <input type="date" name="date" class="form-control" placeholder="date" />
         <input type="text" name="customer" class="form-control" placeholder="customer" />

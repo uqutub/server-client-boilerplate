@@ -1,11 +1,15 @@
 import {Component} from '@angular/core'
 
-import {ICustomer} from '../../../models/index';
-import {CustomerStore} from '../../../stores/index';
+import {ICustomer} from '../../models/index';
+import {CustomerStore} from '../../stores/index';
 
 @Component({
     selector: 'add-customer',
     template: `
+    <h3>Customers</h3>
+    <hr/>
+    <h5 [routerLink]="['../']"><a>Show Customers</a></h5>
+    <br />
     <input type="text" class="form-control" name="name" #name placeholder="customer name" />
     <input type="text" class="form-control" name="company" #company placeholder="company name" />
     <input type="text" class="form-control" name="address" #address placeholder="address" />
@@ -16,7 +20,7 @@ import {CustomerStore} from '../../../stores/index';
     <input type="button" class="btn btn-default" name="submit" value="Add +" (click)="add(name, company, address, phone, mobile, stx, ntn);"/>
  `
 })
-export class CustomerAddComponent {
+export class AddComponent {
 
     constructor(private store: CustomerStore) {
 
