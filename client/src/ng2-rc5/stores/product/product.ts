@@ -27,6 +27,10 @@ export class ProductStore {
         });
     }
 
+    reloadData(): void {
+        this.loadData();
+    }
+
     get(): Rx.Observable<List<IProduct>> {
         if (this.once) {
             return this.products$.asObservable();

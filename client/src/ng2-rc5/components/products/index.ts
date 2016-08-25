@@ -26,7 +26,6 @@ import {ProductStore} from '../../stores/index';
 export class IndexComponent {
 
   products: Rx.Observable<List<IProduct>>;
-  showNewPanel: boolean = false;
 
   constructor(private store: ProductStore) {
     // console.log('productttttttttttttttttttttt ')

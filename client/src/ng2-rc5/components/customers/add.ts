@@ -8,7 +8,7 @@ import {CustomerStore} from '../../stores/index';
     template: `
     <h3>Customers</h3>
     <hr/>
-    <h5 [routerLink]="['../']"><a>Show Customers</a></h5>
+    <h5><a [routerLink]="['../']">Show Customers</a></h5>
     <br />
     <input type="text" class="form-control" name="name" #name placeholder="customer name" />
     <input type="text" class="form-control" name="company" #company placeholder="company name" />

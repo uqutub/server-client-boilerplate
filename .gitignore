@@ -1,3 +1,7 @@
 node_modules
 client/build
 server/build
+GPUCache
+Local Storage
+storage.json
+.vscode

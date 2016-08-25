@@ -28,6 +28,10 @@ export class CustomerStore {
         });
     }
 
+    reloadData(): void {
+        this.loadData();
+    }
+
     get(): Rx.Observable<List<ICustomer>> {
         if (this.once) {
             return this.customers$.asObservable();
