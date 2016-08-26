@@ -2,13 +2,14 @@ import {HttpService} from './httpService';
 import {serverAPI} from './config';
 
 // stores
-import {HandleStore, ProductStore, CustomerStore} from '../stores/index';
+import {HandleStore, ProductStore, CustomerStore, InvoiceStore} from '../stores/index';
 
 export const ApplicationServices: any[] = [
     HttpService
     , HandleStore
     , ProductStore
     , CustomerStore
+    , InvoiceStore
 ];
 
 export {
@@ -16,4 +17,5 @@ export {
     , HandleStore
     , ProductStore
     , CustomerStore
+    , InvoiceStore
 };

@@ -12,6 +12,7 @@ import {devCredentials, prodCredentials} from './credentials';
 
 import {router as customerRoutes} from './customer';
 import {router as productRoutes} from './product';
+import {router as invoiceRoutes} from './invoice';
 
 export class Application {
     private app;
@@ -125,6 +126,7 @@ export class Application {
         // REST APIs
         this.app.use('/api/customer', customerRoutes);
         this.app.use('/api/product', productRoutes);
+        this.app.use('/api/invoice', invoiceRoutes);
     }
 
     private allowOrigin() {

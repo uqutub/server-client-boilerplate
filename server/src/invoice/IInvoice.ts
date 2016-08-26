@@ -5,7 +5,7 @@ import { IProduct } from '../product/index';
 export interface IInvoice {
     _id?: string;
     customer: ICustomer;
-    product: [IProduct];
+    product: IProduct[];
     total: number;
     dated?: number;
 }

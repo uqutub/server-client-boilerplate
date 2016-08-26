@@ -8,6 +8,9 @@ export let Schema = new mongoose.Schema({
     name: String,
     category: String,
     cost: String,
+    qty: { type: Number, default: 0 },
+    rate: { type: Number, default: 0 },
+    total: { type: Number, default: 0 },
     dated: { type: Number, default: Date.now }
 });
 

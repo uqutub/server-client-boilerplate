@@ -2,8 +2,8 @@ import {Component} from '@angular/core';
 import Rx = require('rxjs');
 import {List} from 'immutable';
 
-import {CustomerStore, ProductStore} from '../../stores/index';
-import {IProduct, ICustomer} from '../../models/index';
+import {CustomerStore, ProductStore, InvoiceStore} from '../../stores/index';
+import {IProduct, ICustomer, IInvoice} from '../../models/index';
 
 @Component({
     selector: 'add-invoice'
@@ -15,15 +15,15 @@ import {IProduct, ICustomer} from '../../models/index';
         <input type="date" name="date" #date="ngModel" [(ngModel)]="_date"  class="form-control" placeholder="date" required/>
         <select class="form-control" name="customer" #customer="ngModel" [(ngModel)]="_customer" required>
             <option value="-1" disabled selected>Select Customer</option>
-            <option *ngFor="let cust of customers | async" [value]="cust">{{cust.company}}</option>
+            <option *ngFor="let cust of customers | async" [value]="cust | json">{{cust.company}}</option>
         </select>
         <table class="table">
             <tr>
-                <form #invProdForm="ngForm" (ngSubmit)="onSubmitProduct(invProdForm.valid, invProdForm.value)" novalidate >
+                <form #invProdForm="ngForm" (ngSubmit)="onSubmitProduct(invProdForm.valid, invProdForm.value, customer)" novalidate >
                     <td> 
                         <select class="form-control" name="product" #product="ngModel" [(ngModel)]="_product" required>
                             <option value="-1" disabled selected>Select Product</option>
-                            <option *ngFor="let prod of products | async" [value]="prod">{{prod.name}}</option>
+                            <option *ngFor="let prod of products | async" [value]="prod | json">{{prod.name}}</option>
                         </select> 
                         <small class="text-danger" [hidden]="product.valid || (product.pristine && !invProdForm._submitted)">
                             *
@@ -36,8 +36,8 @@ import {IProduct, ICustomer} from '../../models/index';
                         </small> 
                     </td>
                     <td> 
-                        <input type="number" name="price" #price="ngModel" [(ngModel)]="_price" class="form-control" placeholder="price" required/>
-                        <small class="text-danger" [hidden]="price.valid || (price.pristine && !invProdForm._submitted)">
+                        <input type="number" name="rate" #rate="ngModel" [(ngModel)]="_rate" class="form-control" placeholder="price" required/>
+                        <small class="text-danger" [hidden]="rate.valid || (rate.pristine && !invProdForm._submitted)">
                             *
                         </small>  
                     </td>
@@ -62,7 +62,7 @@ import {IProduct, ICustomer} from '../../models/index';
             </tr>
             <tr>
                 <td>
-                    Total Invoice Amount: 
+                    Total Invoice Amount: {{invoiceTotalAmount}}
                 </td>
             </tr>
         </table>
@@ -75,43 +75,73 @@ export class AddComponent {
     public customers: Rx.Observable<List<ICustomer>>;
     public products: Rx.Observable<List<IProduct>>;
     public productList: IProduct[];
-    _date: Date;
+    public invoice: IInvoice = <IInvoice>{};
 
-    constructor(private cStore: CustomerStore, private pStore: ProductStore) {
+    invoiceTotalAmount: number = 0.00;
+    _date: Date;
+    _qty: number;
+    _rate: number;
+    _product;
+
+    constructor(private cStore: CustomerStore, private pStore: ProductStore, private iStore: InvoiceStore) {
         this.customers = this.cStore.get();
         this.products = this.pStore.get();
         this.productList = [];
         this._date = this.date2str(new Date(), 'yyyy-MM-dd');
-
-
     }
 
     onSubmit(valid, obj) {
-        console.log('submit')
         event.preventDefault();
-        console.log(valid, obj);
+        if (!valid) return;
+
+        this.invoice.dated = Date.parse(obj.date);
+        this.invoice.customer = <ICustomer>JSON.parse(obj['customer']);
+        this.invoice.product = this.productList;
+        this.invoice.total = this.invoiceTotalAmount;
+        console.log('inv obj: ', this.invoice);
+        this.iStore.add(this.invoice).subscribe(r => {
+            console.log('eeeeeeeeeeeeeeeeeeeeeeeeeeee Finish: ', r);
+        });
     }
 
     onSubmitProduct(valid, obj) {
-        console.log('product')
         event.preventDefault();
-        console.log(valid, obj);
+        if (!valid) return;
+        else this.addProduct(obj);
+    }
+
+    addProduct(obj) {
+        obj['product'] = JSON.parse(obj['product']);
+        obj['product']['qty'] = obj.qty;
+        obj['product']['rate'] = obj.rate;
+        obj['product']['total'] = obj.qty * obj.rate;
+        this.productList.push(obj['product']);
+
+        console.log('-------------------------', obj['product']);
+        this._product = "-1";
+        this._qty = null;
+        this._rate = null;
+        this.invoiceTotalAmount += obj['product']['total'];
+    }
+
+    delProduct(obj: IProduct) {
+        this.productList.filter((prod) => prod._id !== obj._id);
     }
 
     date2str(x, y) {
-    var z = {
-        M: x.getMonth() + 1,
-        d: x.getDate(),
-        h: x.getHours(),
-        m: x.getMinutes(),
-        s: x.getSeconds()
-    };
-    y = y.replace(/(M+|d+|h+|m+|s+)/g, function(v) {
-        return ((v.length > 1 ? "0" : "") + eval('z.' + v.slice(-1))).slice(-2)
-    });
+        var z = {
+            M: x.getMonth() + 1,
+            d: x.getDate(),
+            h: x.getHours(),
+            m: x.getMinutes(),
+            s: x.getSeconds()
+        };
+        y = y.replace(/(M+|d+|h+|m+|s+)/g, function (v) {
+            return ((v.length > 1 ? "0" : "") + eval('z.' + v.slice(-1))).slice(-2)
+        });
 
-    return y.replace(/(y+)/g, function(v) {
-        return x.getFullYear().toString().slice(-v.length)
-    });
-}
+        return y.replace(/(y+)/g, function (v) {
+            return x.getFullYear().toString().slice(-v.length)
+        });
+    }
 }

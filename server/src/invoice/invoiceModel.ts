@@ -10,7 +10,7 @@ import {responseHandler} from '../helper/helper';
 export class Invoice implements Interface {
 	_id: string;
     customer: ICustomer;
-    product: [IProduct];
+    product: IProduct[];
     total: number;
     dated: number;
 
