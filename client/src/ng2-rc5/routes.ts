@@ -93,7 +93,7 @@ export const ApplicationComponents = [
   // customer ledger moduls
   , LedgersComponent
   , AddLedgerComponent
-  , UpdateLedgerComponent
-  , DeleteLedgerComponent
+  // , UpdateLedgerComponent
+  // , DeleteLedgerComponent
 
 ];
