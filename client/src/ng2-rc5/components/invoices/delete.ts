@@ -1,22 +1,27 @@
 import {Component} from '@angular/core';
+import {Router} from '@angular/router';
 import {ActivatedRoute} from '@angular/router';
+
+import {InvoiceStore} from '../../stores/index';
 
 @Component({
     selector: 'delete-invoice'
     , template: `
     <h3>Delete Invoice</h3>
     <hr/>
-    <h5><a>Show Invoices</a></h5>
-    <input type="text" name="" placeholder="1" />
-    <input type="text" name="" placeholder="2" />
-    <input type="text" name="" placeholder="3" />
+    <h5><a [routerLink]="['../../']">Show Invoices</a></h5>
 `
 })
 export class DeleteComponent {
 
-    constructor(private route: ActivatedRoute) {
-        // this.route.params.subscribe((r) => {
-        //     console.log('params', r);
-        // })
+    constructor(private routes: ActivatedRoute, private router: Router, private store: InvoiceStore) {
+        this.routes.params.subscribe((params) => {
+            console.log('params', params);
+            this.store.delete(params['id']).subscribe( res =>{
+                console.log('res: ', res);
+                this.router.navigate(['inv']);
+            });
+        });
+
     }
 }

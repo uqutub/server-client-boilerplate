@@ -8,12 +8,16 @@ import {InvoiceStore} from '../../stores/index';
 
 @Component({
     selector: 'invoices'
+    // , styles: [`
+    //     .even { background-color: red; }
+    //     .odd { background-color: green; }
+    // `]
     , template: `
     <h3>Invoices</h3>
     <hr/>
     <h5> <a [routerLink]="['add']">Add Invoice</a> </h5>
     <br />
-    <view-invoice *ngFor="let invoice of invoices | async" [invoice]="invoice"></view-invoice>
+    <view-invoice *ngFor="let invoice of invoices | async; let index=index; let odd=odd; let even=even;" [invoice]="invoice" [odd]="odd" [even]="even"></view-invoice>
 `
     , directives: [ViewComponent]
 })

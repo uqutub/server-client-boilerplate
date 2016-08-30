@@ -9,7 +9,7 @@ import {CustomerStore} from '../../stores/index';
     template: `
     <h3>Delete Customer</h3>
     <hr/>
-    <h5 [routerLink]="['../../']"><a>Show Customers</a></h5>
+    <h5><a [routerLink]="['../../']">Show Customers</a></h5>
     <br />
 
     Are you sure?
