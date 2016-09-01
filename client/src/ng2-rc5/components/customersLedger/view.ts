@@ -3,9 +3,15 @@ import {Component, Input} from '@angular/core';
 import {ILedger} from '../../models/index';
 
 @Component({
-    selector: 'view-ledger'
+    selector: '[view-ledger]'
+    // selector: 'view-ledger'
     , template: `
-    <div class="panel panel-info">
+    <td>{{ledger.customer.name}}</td>
+    <td>{{ledger.remarks}}</td>
+    <td>{{ledger.credit}}</td>
+    <td>{{ledger.debit}}</td>
+    
+    <!-- <div class="panel panel-info">
         <div class="panel-heading">
             <span class="panel-title">{{ledger.customer.name}} / {{ledger.customer.company}}</span>
             <p class="text-right">
@@ -21,7 +27,7 @@ import {ILedger} from '../../models/index';
             <br/>
             Remarks: {{ledger.remarks}}
         </div>
-    </div>
+    </div> -->
     `
 })
 export class LedgerViewComponent {

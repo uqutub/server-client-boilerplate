@@ -21,6 +21,16 @@ export class HandleStore {
         return _observable;
     }
 
+    // getArray(_observable: Rx.Observable<returnObjType>, _subject: Rx.BehaviorSubject<Array<any>>): Rx.Observable<returnObjType> {
+    //     _observable.subscribe((res) => {
+    //         if (!res.err) {
+    //             let newState: Array<any> = <Array<any>>_subject.getValue().concat(res.data);
+    //             _subject.next(newState);
+    //         }
+    //     });
+    //     return _observable;
+    // }
+
     add(_observable: Rx.Observable<returnObjType>, _subject: Rx.BehaviorSubject<List<any>>): Rx.Observable<returnObjType> {
         _observable.subscribe((res) => {
             if (!res.err) {
