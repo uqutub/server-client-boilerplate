@@ -6,7 +6,7 @@ import {ILedger} from '../../models/index';
     selector: '[view-ledger]'
     // selector: 'view-ledger'
     , template: `
-    <td>{{ledger.customer.name}}</td>
+    <td>{{ledger.customer.company}}</td>
     <td>{{ledger.remarks}}</td>
     <td>{{ledger.credit}}</td>
     <td>{{ledger.debit}}</td>

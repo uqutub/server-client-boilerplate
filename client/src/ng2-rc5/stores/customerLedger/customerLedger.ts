@@ -11,9 +11,11 @@ import {HandleStore} from '../handleStore';
 @Injectable()
 export class CustomerLedgerStore {
 
-    once: boolean = false;
+    private once: boolean = false;
     // behavioralSubject as Ledgers
     private behavioralSubject$: Rx.BehaviorSubject<List<ILedger>> = new Rx.BehaviorSubject(List([]));
+    private returnObj = new Rx.Observable<{err: 'null', data: 'null'}>();
+    //or private returnObj = new Rx.Observable<returnObjType>();
 
     constructor(private http: HttpService, private store: HandleStore) {
         console.log('Observable store for customer.... Contructor Loaded');
@@ -49,6 +51,7 @@ export class CustomerLedgerStore {
             let oldState = this.behavioralSubject$.getValue();
             let newState = oldState.push(obj)
             this.behavioralSubject$.next(newState);
+            return this.returnObj;
         }
     }
 

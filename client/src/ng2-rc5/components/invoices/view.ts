@@ -44,7 +44,7 @@ export class InvoiceViewComponent {
     }
 
     ngOnInit() {
-        console.log(this.odd, this.even);
+        // console.log(tis.odd, this.even);
     }
   
 }
