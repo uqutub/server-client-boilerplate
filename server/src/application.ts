@@ -14,6 +14,7 @@ import {router as customerRoutes} from './customer';
 import {router as productRoutes} from './product';
 import {router as invoiceRoutes} from './invoice';
 import {router as customerLedgerRoutes} from './customerLedger';
+import {router as html2pdfRoutes} from './html2pdf';
 
 export class Application {
     private app;
@@ -42,8 +43,8 @@ export class Application {
 
     private staticPath() {
         // defining static path for current project
+        this.app.use('/pdf', express.static(path.join(__dirname, './pdfs')));
         this.app.use(express.static(path.join(__dirname, '../../client/build')));
-        // this.app.use('/app', express.static(path.resolve(__dirname, 'app')));
         // this.app.use('/libs', express.static(path.resolve(__dirname, 'libs')));
     }
 
@@ -131,7 +132,7 @@ export class Application {
         this.app.use('/api/product', productRoutes);
         this.app.use('/api/invoice', invoiceRoutes);
         this.app.use('/api/cledger', customerLedgerRoutes);
-        
+        this.app.use('/api/html2pdf', html2pdfRoutes);
     }
 
     private allowOrigin() {
