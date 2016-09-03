@@ -1,6 +1,5 @@
 import {Component} from '@angular/core';
-import {Router} from '@angular/router';
-import {ActivatedRoute} from '@angular/router';
+import {Router, ActivatedRoute} from '@angular/router';
 
 import {InvoiceStore} from '../../stores/index';
 
@@ -22,6 +21,5 @@ export class DeleteComponent {
                 this.router.navigate(['inv']);
             });
         });
-
     }
 }

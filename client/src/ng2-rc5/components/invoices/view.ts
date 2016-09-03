@@ -12,6 +12,8 @@ import {IInvoice} from '../../models/index';
                 {{invoice.dated | date}}  |  
                 <span class="text-success"><i class="glyphicon glyphicon-edit"></i></span>
                     | 
+                <span class="text-success" [routerLink]="['print', invoice._id]"><i class="glyphicon glyphicon-print"></i></span>
+                    | 
                 <span class="text-danger" [routerLink]="['delete', invoice._id]"><i class="glyphicon glyphicon-trash"></i></span>  
             </p>
         </div>

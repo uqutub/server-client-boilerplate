@@ -42,6 +42,19 @@ export class InvoiceStore {
         }
     }
 
+    getSingle(id?) {
+        return this.behavioralSubject$.map((list)=>{
+            console.log(list);
+            return list.filter((obj) => {
+                if(obj._id === id){
+                    console.log('obj', obj)
+                }
+                return obj._id === id;
+            })
+        })
+    }
+
+
     add(obj: IInvoice): Rx.Observable<returnObjType> {
         let _observable = this.http.post('/api/invoice/', obj);
         _observable.subscribe(res => {

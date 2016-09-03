@@ -20,6 +20,7 @@ import { IndexComponent as InvoicesComponent } from './components/invoices/index
 import { AddComponent as AddInvoiceComponent } from './components/invoices/add';
 import { UpdateComponent as UpdateInvoiceComponent } from './components/invoices/update';
 import { DeleteComponent as DeleteInvoiceComponent } from './components/invoices/delete';
+import { PrintInvoiceComponent } from './components/invoices/print';
 
 // ledger module
 import { IndexComponent as LedgersComponent } from './components/customersLedger/index';
@@ -53,6 +54,7 @@ export const AppRoutes: Routes = [
       { path: "add", component: AddInvoiceComponent }
       , { path: "edit/:id", component: UpdateInvoiceComponent }
       , { path: "delete/:id", component: DeleteInvoiceComponent }
+      , { path: "print/:id", component: PrintInvoiceComponent }
       , { path: "", component: InvoicesComponent }
     ]
   }
