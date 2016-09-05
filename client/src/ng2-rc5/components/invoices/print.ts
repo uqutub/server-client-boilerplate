@@ -131,19 +131,9 @@ export class PrintInvoiceComponent {
     }
 
     pdf(htmlDiv: HTMLDivElement) {
-        let obj = { html: htmlDiv.innerHTML };
-        console.log(obj);
-
-        this.store.pdf(obj).subscribe(r => {
-            if (r.err) {
-                return;
-            } else {
-                console.log(r.data);
-                window.open(
-                    'http://localhost:3000/pdf/' + r.data.name,
-                    '_blank' // <- This is what makes it open in a new window.
-                );
-            }
+        this.store.pdf({ html: htmlDiv.innerHTML }).subscribe(r => {
+            if (r.err) return;
+            else window.open('http://localhost:3000/pdf/' + r.data.name, '_blank');
         });
     }
 
