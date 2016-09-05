@@ -44,11 +44,7 @@ export class InvoiceStore {
 
     getSingle(id?) {
         return this.behavioralSubject$.map((list)=>{
-            console.log(list);
             return list.filter((obj) => {
-                if(obj._id === id){
-                    console.log('obj', obj)
-                }
                 return obj._id === id;
             })
         })
@@ -84,4 +80,8 @@ export class InvoiceStore {
         let _observable = this.http.delete('/api/invoice/' + id);
         return this.store.delete(id, _observable, this.behavioralSubject$);
     }
+
+    pdf(obj: {html: string}): Rx.Observable<returnObjType>{
+        return this.http.post('/api/html2pdf/', obj);
+    }   
 }
