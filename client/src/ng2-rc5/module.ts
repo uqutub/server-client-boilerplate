@@ -8,7 +8,7 @@ import { AppComponent }  from './components/app/app';   //bootstrap component
 
 import { AppRoutes, ApplicationComponents } from './routes';       // application components
 
-import { HttpService, HandleStore, CustomerStore, ProductStore } from './services/index'; // application services
+import { HttpService, HandleStore } from './services/index'; // application services
 
 // import { ApplicationPipes } from './pipes/index';       // application pipes
 
@@ -30,8 +30,6 @@ import { HttpService, HandleStore, CustomerStore, ProductStore } from './service
   , providers: [  // providers
     HttpService
     , HandleStore
-    // , CustomerStore
-    //, ProductStore
   ]
 })
 export class AppModule { }

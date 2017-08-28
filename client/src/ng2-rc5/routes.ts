@@ -21,6 +21,12 @@ import { AddComponent as AddInvoiceComponent } from './components/invoices/add';
 import { UpdateComponent as UpdateInvoiceComponent } from './components/invoices/update';
 import { DeleteComponent as DeleteInvoiceComponent } from './components/invoices/delete';
 
+// ledger module
+import { IndexComponent as LedgersComponent } from './components/customersLedger/index';
+import { AddComponent as AddLedgerComponent } from './components/customersLedger/add';
+// import { UpdateComponent as UpdateLedgerComponent } from './components/customersLedger/update';
+// import { DeleteComponent as DeleteLedgerComponent } from './components/customersLedger/delete';
+
 export const AppRoutes: Routes = [
   { path: "home", component: HomeComponent }
   , {
@@ -50,6 +56,15 @@ export const AppRoutes: Routes = [
       , { path: "", component: InvoicesComponent }
     ]
   }
+  , {
+    path: "cust-ledger"
+    , children: [
+      { path: "add", component: AddLedgerComponent }
+      // , { path: "edit/:id", component: UpdateLedgerComponent }
+      // , { path: "delete/:id", component: DeleteLedgerComponent }
+      , { path: "", component: LedgersComponent }
+    ]
+  }
   , { path: "", redirectTo: "home", terminal: true }
 ];
 
@@ -74,5 +89,11 @@ export const ApplicationComponents = [
   , AddInvoiceComponent
   , UpdateInvoiceComponent
   , DeleteInvoiceComponent
+
+  // customer ledger moduls
+  , LedgersComponent
+  , AddLedgerComponent
+  , UpdateLedgerComponent
+  , DeleteLedgerComponent
 
 ];

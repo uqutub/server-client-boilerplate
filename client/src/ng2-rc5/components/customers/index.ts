@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import Rx = require('rxjs');
 import {List} from 'immutable';
 
-import {ViewComponent} from './view';
+import {CustomerViewComponent as ViewComponent} from './view';
 
 import {ICustomer} from '../../models/index';
 import {CustomerStore} from '../../stores/index';
@@ -22,7 +22,6 @@ import {CustomerStore} from '../../stores/index';
 export class IndexComponent {
 
   customers: Rx.Observable<List<ICustomer>>;
-  showNewPanel: boolean = false;
 
   constructor(private store: CustomerStore) {
     this.customers = this.store.get();

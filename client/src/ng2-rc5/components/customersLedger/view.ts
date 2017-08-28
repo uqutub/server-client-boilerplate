@@ -1,13 +1,13 @@
 import {Component, Input} from '@angular/core';
 
-import {IInvoice} from '../../models/index';
+import {ILedger} from '../../models/index';
 
 @Component({
-    selector: 'view-invoice'
+    selector: 'view-ledger'
     , template: `
     <div class="panel panel-info">
         <div class="panel-heading">
-            <span class="panel-title">{{invoice.customer.name}} / {{invoice.customer.company}}</span>
+            <span class="panel-title">{{ledger.customer.name}} / {{ledger.customer.company}}</span>
             <p class="text-right">
                 <span class="text-success"><i class="glyphicon glyphicon-edit"></i></span>
                     | 
@@ -15,19 +15,19 @@ import {IInvoice} from '../../models/index';
             </p>
         </div>
         <div class="panel-body">
-            Invoice Total: {{invoice.total}} {{dated()}}
+            Credit: {{ledger.credit}} 
+            <br/>
+            Debit: {{ledger.debit}}
+            <br/>
+            Remarks: {{ledger.remarks}}
         </div>
     </div>
-`
+    `
 })
-export class InvoiceViewComponent {
-    @Input() invoice: IInvoice;
+export class LedgerViewComponent {
+    @Input() ledger: ILedger;
 
     constructor() {
 
-    }
-
-    dated() {
-        return new Date(this.invoice.dated);
     }
 }

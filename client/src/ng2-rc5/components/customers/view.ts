@@ -20,7 +20,7 @@ import {ICustomer} from '../../models/index';
     </div>
 `
 })
-export class ViewComponent {
+export class CustomerViewComponent {
     @Input() customer: ICustomer;
 
     constructor() {

@@ -1,4 +1,5 @@
 import {Component} from '@angular/core';
+import {Router} from '@angular/router';
 import Rx = require('rxjs');
 import {List} from 'immutable';
 
@@ -83,7 +84,7 @@ export class AddComponent {
     _rate: number;
     _product;
 
-    constructor(private cStore: CustomerStore, private pStore: ProductStore, private iStore: InvoiceStore) {
+    constructor(private cStore: CustomerStore, private pStore: ProductStore, private iStore: InvoiceStore, private router: Router) {
         this.customers = this.cStore.get();
         this.products = this.pStore.get();
         this.productList = [];
@@ -93,14 +94,15 @@ export class AddComponent {
     onSubmit(valid, obj) {
         event.preventDefault();
         if (!valid) return;
-
+        
         this.invoice.dated = Date.parse(obj.date);
         this.invoice.customer = <ICustomer>JSON.parse(obj['customer']);
         this.invoice.product = this.productList;
         this.invoice.total = this.invoiceTotalAmount;
-        console.log('inv obj: ', this.invoice);
         this.iStore.add(this.invoice).subscribe(r => {
-            console.log('eeeeeeeeeeeeeeeeeeeeeeeeeeee Finish: ', r);
+           if(!r.err){
+               this.router.navigate(['inv']);
+           }
         });
     }
 
@@ -117,7 +119,6 @@ export class AddComponent {
         obj['product']['total'] = obj.qty * obj.rate;
         this.productList.push(obj['product']);
 
-        console.log('-------------------------', obj['product']);
         this._product = "-1";
         this._qty = null;
         this._rate = null;
@@ -128,20 +129,21 @@ export class AddComponent {
         this.productList.filter((prod) => prod._id !== obj._id);
     }
 
-    date2str(x, y) {
+    date2str(date, format) {
+        console.log(date)
         var z = {
-            M: x.getMonth() + 1,
-            d: x.getDate(),
-            h: x.getHours(),
-            m: x.getMinutes(),
-            s: x.getSeconds()
+            M: date.getMonth() + 1,
+            d: date.getDate(),
+            h: date.getHours(),
+            m: date.getMinutes(),
+            s: date.getSeconds()
         };
-        y = y.replace(/(M+|d+|h+|m+|s+)/g, function (v) {
+        format = format.replace(/(M+|d+|h+|m+|s+)/g, function (v) {
             return ((v.length > 1 ? "0" : "") + eval('z.' + v.slice(-1))).slice(-2)
         });
 
-        return y.replace(/(y+)/g, function (v) {
-            return x.getFullYear().toString().slice(-v.length)
+        return format.replace(/(y+)/g, function (v) {
+            return date.getFullYear().toString().slice(-v.length)
         });
     }
 }

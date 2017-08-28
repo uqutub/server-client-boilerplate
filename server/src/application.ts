@@ -13,6 +13,7 @@ import {devCredentials, prodCredentials} from './credentials';
 import {router as customerRoutes} from './customer';
 import {router as productRoutes} from './product';
 import {router as invoiceRoutes} from './invoice';
+import {router as customerLedgerRoutes} from './customerLedger';
 
 export class Application {
     private app;
@@ -52,6 +53,7 @@ export class Application {
             , "/cust"
             , "/prod"
             , "/inv"
+            , "/cust-ledger"
         ];
 
         this.renderAngularPage(angularRoutes);
@@ -76,6 +78,7 @@ export class Application {
     }
 
     public mongooseConnect() {
+        mongoose.Promise = global.Promise as any;
         mongoose.connect(this.mongoDbConStr);
     }
 
@@ -127,6 +130,8 @@ export class Application {
         this.app.use('/api/customer', customerRoutes);
         this.app.use('/api/product', productRoutes);
         this.app.use('/api/invoice', invoiceRoutes);
+        this.app.use('/api/cledger', customerLedgerRoutes);
+        
     }
 
     private allowOrigin() {
@@ -162,7 +167,7 @@ export class Application {
     public startServer() {
         this.enviroment();
         this.setPort();
-        this.logger();
+        // this.logger();
         // this.customLogger();
         this.mongooseConnect();
         this.bodyParser();

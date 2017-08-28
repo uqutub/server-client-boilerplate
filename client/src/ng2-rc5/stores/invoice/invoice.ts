@@ -6,15 +6,17 @@ import {List} from 'immutable';
 import {IInvoice} from '../../models/index';
 import {returnObjType} from '../../helper/helper';
 import {HttpService} from '../../services/index';
+import {CustomerLedgerStore} from '../customerLedger/customerLedger';
 import {HandleStore} from '../handleStore';
 
 @Injectable()
 export class InvoiceStore {
 
     once: boolean = false;
+    // behavioralSubject as invoices
     private behavioralSubject$: Rx.BehaviorSubject<List<IInvoice>> = new Rx.BehaviorSubject(List([]));
 
-    constructor(private http: HttpService, private store: HandleStore) {
+    constructor(private http: HttpService, private store: HandleStore, private custLedgerStore: CustomerLedgerStore) {
         console.log('Observable store for invoice.... Contructor Loaded');
     }
 
@@ -42,7 +44,22 @@ export class InvoiceStore {
 
     add(obj: IInvoice): Rx.Observable<returnObjType> {
         let _observable = this.http.post('/api/invoice/', obj);
-        return this.store.add(_observable, this.behavioralSubject$);
+        _observable.subscribe(res => {
+            if (!res.err) {
+                // add invoice in Observable
+                let oldState = this.behavioralSubject$.getValue();
+                let newState = oldState.push(res.data.invoice)
+                this.behavioralSubject$.next(newState);
+
+                // customerLedger update
+                this.custLedgerStore.get(); // first getting ledger from server then add new record, else it will duplicate
+                setTimeout(() => {
+                    this.custLedgerStore.add(res.data.ledger, false);
+                }, 1000)
+            }
+        });
+        return _observable;
+        // return this.store.add(_observable, this.behavioralSubject$);
     }
 
     update(obj: IInvoice): Rx.Observable<returnObjType> {

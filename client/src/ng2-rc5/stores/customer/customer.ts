@@ -14,7 +14,6 @@ export class CustomerStore {
     once: boolean = false;
     private customers$: Rx.BehaviorSubject<List<ICustomer>> = new Rx.BehaviorSubject(List([]));
 
-
     constructor(private http: HttpService, private store: HandleStore) {
         console.log('Observable store for customer.... Contructor Loaded');
     }

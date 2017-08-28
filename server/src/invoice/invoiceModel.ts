@@ -7,6 +7,9 @@ import {IProduct} from '../product/index';
 import {InvoiceCollection as Collection} from './invoiceSchema';
 import {responseHandler} from '../helper/helper';
 
+// customer ledger model for when invoice create, maintain customer ledger
+import {Model as LedgerModel, ILedger} from '../customerLedger/index';
+
 export class Invoice implements Interface {
 	_id: string;
     customer: ICustomer;
@@ -33,11 +36,27 @@ export class Invoice implements Interface {
 		});
 	} // get
 
-	add(expressResponse: express.Response, customer: Interface) {
+	add(expressResponse: express.Response, invoice: Interface) {
 		return new Promise((resolve, reject) => {
-			let customerObj = new Collection(customer);
-			customerObj.save((err, data: Interface) => {
-				responseHandler(err, data, resolve, reject, expressResponse);
+			let invoiceObj = new Collection(invoice);
+			invoiceObj.save((err: boolean, _invoice: Interface) => {
+				if (!err) {
+					let ledgerObj: ILedger = {
+						customer: _invoice.customer,
+						credit: _invoice.total,
+						debit: 0,
+						remarks: 'Angainst Invoice # ' + _invoice._id,
+						dated: Date.now()
+					};
+					let ledgerModel: LedgerModel = new LedgerModel();
+					ledgerModel.add(expressResponse, ledgerObj).then(_ledger => {
+						responseHandler(err, { ledger: _ledger, invoice: _invoice }, resolve, reject, expressResponse);
+					}).catch(error => {
+						responseHandler(error, null, resolve, reject, expressResponse);
+					});
+				} else { // if !!err
+					responseHandler(err, _invoice, resolve, reject, expressResponse);
+				} // else !!err
 			});
 		});
 	} // add
